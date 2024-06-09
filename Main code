@@ -1,0 +1,56 @@
+#define BLYNK_PRINT Serial
+#include <ESP8266WiFi.h>
+#include <BlynkSimpleEsp8266.h>
+int pirPin = 15;
+int relayPin = 5;
+int pirValue;
+
+
+char auth[] = "BJNf_Zx_5CpfkCIo3BxpT1tKZfpGCKQb"; // the auth code that you got on your gmail
+char ssid[] = "Ridham"; // username or ssid of your WI-FI
+char pass[] = "wifipass"; // password of your Wi-Fi
+
+void setup()
+{
+  Blynk.begin(auth, ssid, pass);
+// Debug console
+Serial.begin(9600);
+pinMode(D1,OUTPUT); //extend these to D8 if you are using a 8 pin relay
+pinMode(D2,OUTPUT);
+pinMode(D3,OUTPUT);
+pinMode(D4,OUTPUT);
+pinMode(D5,OUTPUT);
+pinMode(D6,OUTPUT);
+pinMode(D7,OUTPUT);
+pinMode(D8,OUTPUT);
+pinMode(D9,OUTPUT);
+pinMode(D10,OUTPUT);
+
+digitalWrite(D1,HIGH); // Make it low if you want everything to go off
+digitalWrite(D2,HIGH); // in case of a power cut
+digitalWrite(D3,HIGH);
+digitalWrite(D4,HIGH);
+digitalWrite(D5,HIGH);
+digitalWrite(D6,HIGH);
+digitalWrite(D7,HIGH);
+digitalWrite(D8,HIGH);
+digitalWrite(D9,HIGH);
+digitalWrite(D10,HIGH);
+
+
+Serial.begin(9600);
+  Blynk.begin(auth, ssid, pass);
+  pinMode(pirPin, INPUT);
+  pinMode(relayPin, OUTPUT);
+}
+
+void pirSensor()
+{  
+  pirValue = digitalRead(pirPin);
+  Blynk.virtualWrite(V0, pirValue);
+}
+
+void loop()
+{
+  Blynk.run();
+}
